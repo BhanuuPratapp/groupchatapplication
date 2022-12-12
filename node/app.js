@@ -5,6 +5,7 @@ const path = require('path');
 const cors = require('cors')
 const sequelize = require('./util/database');
 const getControllerFor404 = require('./controllers/404page.js')
+
 const parser = require('body-parser')
 const app = express();
 app.use(cors(
@@ -14,20 +15,22 @@ app.use(cors(
 ))
 
 app.use(express.json())
-const loginroutes = require('./routes/login')
+//const loginroutes = require('./routes/login')
 const signuproutes = require('./routes/users')
-
-const messageroutes = require('./routes/message')
-
+const msgs = require("./routes/msg");
+//const messageroutes = require('./routes/message')
+const users = require('./models/user')
+const messages = require('./models/messages')
 
 app.use(parser.urlencoded({extended: false}))
-app.use(loginroutes);
+//app.use(loginroutes);
 app.use('/user',signuproutes)
-app.use(messageroutes);
+//app.use(messageroutes);
+app.use(msgs)
 
-
-
-app.use(getControllerFor404.get404Page)
+users.hasMany(messages)
+messages.belongsTo(users)
+//app.use(getControllerFor404.get404Page)
 
 
 sequelize

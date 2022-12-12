@@ -67,9 +67,10 @@ function  loginDetails(event){
     axios.post("http://localhost:9000/user/log-in", obj)
     .then(result =>{
         if(result.status === 201){
+          console.log("result",result)
           alert(result.data.message)
            localStorage.setItem('token', result.data.token);
-       // window.location.replace("./expense.html")
+        window.location.replace("./chatapp.html")
         }
     }
         )

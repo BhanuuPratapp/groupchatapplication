@@ -1,0 +1,11 @@
+const express = require('express')
+const messagecontroller = require('../controllers/msg')
+const userauthentication = require('../middleware/auth')
+
+const router = express.Router();
+
+router.post("/sendmsg", userauthentication.authenticate, messagecontroller.sendmsg);
+//router.get("/getmessages", userauthentication.authenticate, messagecontroller.getmessages);
+//router.get("/getgroupmessages", userauthentication.authenticate, messagecontroller.getgroupmessages);
+
+module.exports = router;
