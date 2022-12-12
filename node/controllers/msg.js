@@ -1,6 +1,6 @@
 const express = require('express')
 const messagetable = require('../models/messages')
-
+const { Sequelize, Op } = require("sequelize");
 exports.sendmsg = async (req, res, next) => {
    
    
@@ -21,3 +21,13 @@ exports.sendmsg = async (req, res, next) => {
         })
     }
 }
+
+exports.getmessages = async (req, res) => {
+    const id=req.query.id
+   messagetable
+      .findAll({where:{msgid:{[Op.gt]:id}}})
+      .then((msgs) => {
+        res.json(msgs);
+      })
+      .catch((err) => console.log(err));
+  };

@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
 //const phoneValidationRegex = /\d{3}-\d{3}-\d{4}/ 
 const messagetable = sequelize.define('message', {
-    GroupId: {
+    msgid: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
         autoIncrement: true,
