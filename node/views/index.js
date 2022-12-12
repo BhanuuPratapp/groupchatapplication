@@ -30,15 +30,16 @@ function userDetails(event) {
         
     }
    
-  axios.post("http://localhost:9000/sign-up",obj)
+  axios.post("http://localhost:9000/user/sign-up",obj)
    .then((response) =>{
     
-    //if(response.status === 201)
-   // {
+    if(response.status === 201)
+    {
+      alert(response.data.message)
     console.log(response)
     }
 
-   )
+  })
    .catch((err) => {
    
    console.log(err)
@@ -63,11 +64,12 @@ function  loginDetails(event){
         password,
         
     }
-    axios.post("http://52.194.185.61:1000/user/log-in", obj)
+    axios.post("http://localhost:9000/user/log-in", obj)
     .then(result =>{
         if(result.status === 201){
-            localStorage.setItem('token', result.data.token);
-        window.location.replace("./expense.html")
+          alert(result.data.message)
+           localStorage.setItem('token', result.data.token);
+       // window.location.replace("./expense.html")
         }
     }
         )

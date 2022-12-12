@@ -7,7 +7,11 @@ const sequelize = require('./util/database');
 const getControllerFor404 = require('./controllers/404page.js')
 const parser = require('body-parser')
 const app = express();
-app.use(cors())
+app.use(cors(
+  {
+    origin: '*'
+  }
+))
 
 app.use(express.json())
 const loginroutes = require('./routes/login')
@@ -18,7 +22,7 @@ const messageroutes = require('./routes/message')
 
 app.use(parser.urlencoded({extended: false}))
 app.use(loginroutes);
-app.use(signuproutes)
+app.use('/user',signuproutes)
 app.use(messageroutes);
 
 
