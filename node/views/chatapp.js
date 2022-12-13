@@ -21,7 +21,10 @@ sendmsg.addEventListener("click", (e) => {
     });
 });
 
-window.addEventListener("DOMContentLoaded", () => {
+
+setInterval(function() {
+
+//window.addEventListener("DOMContentLoaded", () => {
   const lsdata = JSON.parse(localStorage.getItem("messages"));
 
   let lastid;
@@ -29,6 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
     lastid = 0;
   } else {
     lastid = lsdata[lsdata.length - 1].msgid;
+    console.log("lastIdddddd", lastid)
   }
   let mergemsgs = [];
   axios
@@ -40,7 +44,8 @@ window.addEventListener("DOMContentLoaded", () => {
         } else {
           mergemsgs = messages.data;
         }
-        if (mergemsgs.lenght > 1000) {
+        if (mergemsgs.length > 1000) {
+            console.log("mergemsgLength", mergemsgs.length)
           let remove = mergemsgs.length - 1000;
           for (let i = 0; i < remove; i++) {
             mergemsgs.shift();
@@ -50,7 +55,7 @@ window.addEventListener("DOMContentLoaded", () => {
         mergemsgs = JSON.parse(localStorage.getItem("messages"));
       }
       localStorage.setItem("messages", JSON.stringify(mergemsgs));
-
+      console.log("mergemsgLength", mergemsgs)
       const msgcontainer = document.getElementById("msgs");
       msgcontainer.innerHTML = "";
       msgcontainer.innerHTML = "<h1>Messages:</h1>";
@@ -67,7 +72,7 @@ window.addEventListener("DOMContentLoaded", () => {
         msgcontainer.appendChild(msgdiv);
       }
     });
-});
+},1000);
 
 function displaymsgs() {
   const lsdata = JSON.parse(localStorage.getItem("messages"));
