@@ -24,10 +24,34 @@ exports.sendmsg = async (req, res, next) => {
 
 exports.getmessages = async (req, res) => {
     const id=req.query.id
+    console.log("Idddddddddddddddd", id)
    messagetable
-      .findAll({where:{msgid:{[Op.gt]:id}}})
+      .findAll({where:{msgid:{[Op.gt]:id}, GroupId:null}})
       .then((msgs) => {
         res.json(msgs);
       })
       .catch((err) => console.log(err));
   };
+
+  exports.getallmessages = async(req, res) =>{
+    messagetable
+      .findAll().then((msgs) =>{
+        res.json({allmessages: msgs})
+      })
+      .catch(err => console.log(err))
+  }
+
+  
+exports.getgroupmessages=async function(req,res){
+    const groupid=req.query.gid
+  
+    messagetable
+      .findAll({where:{GroupId:groupid}})
+      .then((msgs) => {
+        res.json(msgs);
+      })
+      .catch((err) => console.log(err));
+  
+  
+  
+  }
