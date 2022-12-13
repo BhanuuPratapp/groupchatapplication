@@ -2,12 +2,17 @@
 const express = require('express');
 
 const path = require('path');
+
 const cors = require('cors')
+
 const sequelize = require('./util/database');
+
 //const getControllerFor404 = require('./controllers/404page.js')
 
 const parser = require('body-parser')
+
 const app = express();
+
 app.use(cors(
   {
     origin: '*'
@@ -15,10 +20,13 @@ app.use(cors(
 ))
 
 app.use(express.json())
-//const loginroutes = require('./routes/login')
+
 const signuproutes = require('./routes/users')
 const msgs = require("./routes/msg");
 const grouproutes = require("./routes/groups")
+
+
+//const loginroutes = require('./routes/login')
 //const messageroutes = require('./routes/message')
 
 
@@ -28,27 +36,31 @@ const groups = require('./models/groups')
 const usergroups = require('./models/usergroups')
 
 app.use(parser.urlencoded({extended: false}))
-//app.use(loginroutes);
 app.use('/user',signuproutes)
-//app.use(messageroutes);
 app.use(msgs)
 app.use(grouproutes)
+
+
+//app.use(loginroutes);
+//app.use(messageroutes);
+//app.use(getControllerFor404.get404Page)
 
 users.hasMany(messages)
 messages.belongsTo(users)
 
 groups.belongsToMany(users, {through: usergroups})
 users.belongsToMany(groups,{through: usergroups})
-//app.use(getControllerFor404.get404Page)
 
 groups.hasMany(messages)
 messages.belongsTo(groups)
+
+
 sequelize
   .sync()
   
   .then(() => {
    
-   // https.createServer({key:privatekey,cert:certificate},app).listen(process.env.HOST || 1000)
+   
    app.listen(9000)
   })
  

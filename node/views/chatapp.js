@@ -1,3 +1,6 @@
+//const { getmessages } = require("../controllers/msg");
+let getgroupmessages
+let getmessages
 const sendmsg = document.getElementById("sdmsg");
 const token = localStorage.getItem("token");
 sendmsg.addEventListener("click", (e) => {
@@ -35,6 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
      }
     })
     */
+    getmessages = setInterval(function() {
   const lsdata = JSON.parse(localStorage.getItem("messages"));
 
   let lastid;
@@ -85,6 +89,7 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     });
 },1000);
+})
 
 function displaymsgs() {
   const lsdata = JSON.parse(localStorage.getItem("messages"));
@@ -135,6 +140,7 @@ function displaymsgs() {
 
 const creategroup = document.getElementById("cgp");
 creategroup.addEventListener("click", (e) => {
+    clearInterval(getmessages);
   e.preventDefault();
   const groupname = document.getElementById("gpname").value;
   let groupdetails = {
@@ -175,6 +181,11 @@ window.addEventListener("DOMContentLoaded", () => {
   const groupscontainer = document.getElementById("groups");
 
 groupscontainer.addEventListener("click", (e) => {
+    clearInterval(getmessages);
+    clearInterval(getgroupmessages)
+
+    getgroupmessages = setInterval(function() {
+
   const groupid = e.target.parentNode.id;
 
   document.getElementById("groupid").value = groupid;
@@ -200,6 +211,7 @@ groupscontainer.addEventListener("click", (e) => {
         msgcontainer.appendChild(msgdiv);
       }
     });
+},1000)
 });
 
 const adduser = document.getElementById("adu");

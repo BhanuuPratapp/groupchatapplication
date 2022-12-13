@@ -16,6 +16,9 @@ const messagetable = sequelize.define('message', {
     message: {
         type: Sequelize.STRING,
         allowNull: false,
+        validate : {
+            notEmpty: true
+         }
     }
 
 })
